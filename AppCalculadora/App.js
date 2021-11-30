@@ -1,31 +1,37 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, SafeAreaView, StyleSheet, Text,TextInput, Button} from 'react-native';
 import Css from './estilos/estilos'
 
 export default function() {
  
   const [conta, setConta] = useState('');
-  const [gorjeta, setGorjeta] = useState ('0')
+  const [gorjeta, setGorjeta] = useState ('0');
+  const [pct,setPct] = useState(10)
   
   const calc = () => {
       let nConta = parseFloat (conta); //
       if (nConta) {
 
-        setGorjeta(10/100 * nConta )
+        setGorjeta(pct/100 * nConta ) // pct é a porcentagem escolhida pelo usuario
 
       } else {
         alert ('Digite o valor da conta')
       }
   }
  
+useEffect (()=>{
+
+}, [])
+
   return (
 <SafeAreaView style={{ flex:1,
+                      backgroundColor: '#000',
                       alignItems:'center' }}>
 
                               <Text
                               style ={{
                                 fontSize: 25,
-                                color: '#000'
+                                color: '#fff'
                               }}
                               > Calculadora de gorjeta </Text>
 
@@ -36,9 +42,21 @@ export default function() {
                               value ={conta}
                               onChangeText = {n=>setConta (n)}
                               />
+                              
+                              <View style = {Css.pctArea}> 
+                                <Button 
+                                title= '5%' onPress ={()=>setPct(5)}/>
+                                <Button style = {Css.pctItem}
+                                title= '10%'onPress ={()=>setPct(10)} />
+                                <Button style = {Css.pctItem}
+                                 title= '15%' onPress ={()=>setPct(15)}/>
+                                <Button style = {Css.pctItem}
+                                title= '20%' onPress ={()=>setPct(20)} />
+                              </View> 
+
 
                               <Button style= {{marginTop: 10}}
-                              title ='Calcular' onPress ={calc}/>
+                              title ={`Calcular ${pct}%`} onPress ={calc}/>
 
                               { gorjeta > 0 && // se gorjeta for maior que zero a Area é exibida
                               //Tofixed limita as casas decimais
@@ -47,7 +65,7 @@ export default function() {
                                 <Text style = {Css.resultItem}> R$ {parseFloat(conta).toFixed(2)}</Text> 
                   
                                 <Text style = {Css.resultItemTitle}> Valor da Gorjeta </Text>
-                                <Text style = {Css.resultItem}> R$ {gorjeta.toFixed(2)} (10%)</Text>
+                                <Text style = {Css.resultItem}> R$ {gorjeta.toFixed(2)} ({pct}%)</Text>
 
                                 <Text style = {Css.resultItemTitle}> Valor Total </Text>
                                 <Text style = {Css.resultItem}> R$ {(parseFloat (conta) + gorjeta). toFixed(2)} </Text>
