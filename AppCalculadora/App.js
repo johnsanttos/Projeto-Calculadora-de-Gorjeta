@@ -20,8 +20,8 @@ export default function() {
   }
  
 useEffect (()=>{
-
-}, [])
+calc();
+}, [pct]) // para acompanhar estado do componente, executar entre arrays
 
   return (
 <SafeAreaView style={{ flex:1,

@@ -29,6 +29,17 @@ areaInput:{
         borderRadius:10,
         padding:10
 
+},
+pctArea:{
+flexDirection: 'row',
+margin:20,
+},
+
+pctItem:{
+marginEnd:10,
+width:30,
+height:30,
+backgroundColor: '#000'
 }
 
 })
